@@ -5,8 +5,13 @@ node_js:
 
 cache: npm
 
+env:
+    - TARGET=test
+matrix:
+  include:
+    - env: TARGET=lint  
 before_script:
   - npm install
   - npm i -g npm@6.9.0
 
-script: npm run test
+script: npm run $TARGET
