@@ -24,7 +24,7 @@ export const getList = (source) => (context) => {
             context.commit('setList', res.data);
         })
         .catch((err) => {
-                axios.get('./demos.json')
+                axios.get('./' + source + '.json')
                     .then((res) => {
 
                         context.commit('setList', res.data);

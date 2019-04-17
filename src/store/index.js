@@ -2,13 +2,15 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import demos from './modules/demos.js';
+import localgroups from './modules/localgroups.js';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   namespaced: true,
   modules: {
-    demos
+    demos,
+    localgroups
   },
   state: {
     
