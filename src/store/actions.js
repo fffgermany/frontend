@@ -18,13 +18,17 @@ const fetchConfig = (ctx) => {
 
 export const getList = (source) => (context) => {
 
+    if (context.state.list.length > 0) {
+        return 
+    }
+
     axios
         .get(baseConfig.baseUrl + source, fetchConfig(context))
         .then((res) => {
             context.commit('setList', res.data);
         })
         .catch((err) => {
-                axios.get('./' + source + '.json')
+                axios.get('/' + source + '.json')
                     .then((res) => {
 
                         context.commit('setList', res.data);

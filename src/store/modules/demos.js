@@ -9,6 +9,12 @@ const getters = {
     getItems(state) {
 
         return state.list;
+    },
+    getItemByID: (state) => (ID) => {
+
+        const parsedID = parseInt(ID);
+            
+        return state.list.find((item) => item.id === parsedID);
     }
 };
 
