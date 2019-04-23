@@ -102,60 +102,60 @@ export default {
 
 <style lang="scss">
 .fff-signup{
-width: 75%;
-margin: auto;
-margin-top: 3cm;
-border: 2px solid #1B7340;
-padding: 15px 15px 15px 15px;
-border-radius: 4px;
-box-sizing: border-box;
--webkit-appearance: none;
+  width: 75%;
+  margin: auto;
+  margin-top: 3cm;
+  border: 2px solid #1B7340;
+  padding: 15px 15px 15px 15px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+
+  button{
+    box-sizing: border-box;
+    background: #1B7340;
+    color: white !important;
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border-radius: 4px;
+    text-transform: capitalize;
+    border: none;
+    outline: none;
+
+    &:hover{
+      background: #1DA64A;
+      border: none;
+    }
+  }
+
+  input, select {
+    box-sizing: border-box;
+    border: 2px solid #1B7340;
+    border-radius: 4px;
+    margin-top: 5px;
+    outline: none;
+    width: 100%;
+  }
+
+  input{
+    padding: 10px;
+
+    &:focus{
+      background: rgba(27,115,64,0.5);
+    }
+  }
+
+  select{
+    padding: 9.25px;
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+
+  @media only screen and (min-width: 768px) {
+    width: 35%
+  }
 }
 
-.fff-signup button{
-box-sizing: border-box;
-background: #1B7340;
-color: white !important;
-width: 100%;
-padding: 12px;
-margin-top: 5px;
-border-radius: 4px;
-text-transform: capitalize;
-border: none;
-outline: none;
-}
 
-.fff-signup button:hover{
-background: #1DA64A;
-border: none;
-}
-
-.fff-signup input{
-box-sizing: border-box;
-border: 2px solid #1B7340;
-border-radius: 4px;
-margin-top: 5px;
-outline: none;
-width: 100%;
-padding: 10px;
-}
-
-.fff-signup input:focus{
-background: rgba(27,115,64,0.5);
-}
-
-.fff-signup select{
-box-sizing: border-box;
-border: 2px solid #1B7340;
-border-radius: 4px;
-margin-top: 5px;
-outline: none;
-width: 100%;
-padding: 9.25px;
-cursor: pointer;
-}
-
-@media only screen and (min-width: 768px) {
-.fff-signup{width: 35%}
-}
 </style>
