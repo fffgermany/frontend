@@ -7,6 +7,7 @@
               name="email"
               type="email"
               placeholder="Email"/>
+        <span class="fff-input__error">{{error.email}}</span>
       </div>
       <div>
         <input class="fff-signup__input fff-input"
@@ -14,6 +15,15 @@
               name="name"
               type="text"
               placeholder="Name"/>
+        <span class="fff-input__error">{{error.name}}</span>
+      </div>
+      <div>
+        <input class="fff-signup__input fff-input"
+              v-model="model.description"
+              name="description"
+              type="text"
+              placeholder="Beschreibung"/>
+        <span class="fff-input__error">{{error.description}}</span>
       </div>
       <div>
         <select class="fff-signup__input fff-input"
@@ -24,6 +34,7 @@
             {{ localgroup.name }}
           </option>
         </select>
+        <span class="fff-input__error"></span>
       </div>
       <div>
         <input class="fff-signup__input fff-input"
@@ -31,6 +42,7 @@
               name="password"
               type="password"
               placeholder="Password"/>
+        <span class="fff-input__error">{{error.password}}</span>
       </div>
       <div>
         <input class="fff-signup__input fff-input"
@@ -41,10 +53,11 @@
       </div>
       <div>
         <input class="fff-signup__input fff-input"
-              v-model="model.secret"
-              name="secret"
+              v-model="model.thesecret"
+              name="thesecret"
               type="text"
               placeholder="Secret"/>
+        <span class="fff-input__error">{{error.thesecret}}</span>
       </div>
       <div>
         <button @click="submit">registrieren</button>
@@ -67,8 +80,10 @@ export default {
         name: null,
         ortsgruppe_id: null,
         password: null,
+        thesecret: null
       },
       signupSuccess: false,
+      error: {}
     };
   },
   computed: {
@@ -90,9 +105,9 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          this.signupSuccess = true;
-        });
-    },
+          this.error = err.response.data;
+        })
+    }
   },
   beforeCreate() {
     this.$store.dispatch('localgroups/getList');

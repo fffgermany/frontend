@@ -42,7 +42,7 @@ export default new Vuex.Store({
     signup(context, model) {
 
       return  axios
-        .post(baseConfig.baseUrl + 'user', fetchConfig(context), model);
+        .post(baseConfig.baseUrl + 'user', model, fetchConfig(context));
     },
     signin(context, model) {
 
