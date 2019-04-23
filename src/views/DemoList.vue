@@ -4,24 +4,37 @@
         <input type="checkbox" v-model="filterByAdminID" class="fff-input"/>
         Zeige nur meine Demos
     </div>
-    <ul v-for="demo in demos" v-bind:key="demo.id">
-        
-        <router-link tag="li" :to="'/demos/' + demo.id">
-            <a>
-                {{demo.ort}} (OG: {{localgroupName(demo)}}) am {{demo.zeit}}
-            </a>
-        </router-link>
-    </ul>
+
+    <vue-virtual-table
+      :enableExport="true"
+      :height="windowHeight"
+      :config="tableConfig"
+      :data="demos">
+      <template slot-scope="scope" slot="actionCommon">
+        <!-- ToDo add btns for  demo admin shortcuts (delete, edit, copy) -->
+        <button @click="show(scope.index, scope.row)">Details anzeigen</button>
+      </template>
+    </vue-virtual-table>
   </div>
 </template>
 
 <script>
 
+import VueVirtualTable from 'vue-virtual-table'
+
 export default {
   name: 'demoList',
+
   data() {
     return {
-      filterByAdminID: false
+      filterByAdminID: false,
+      tableConfig: [
+        { prop: 'ort', name: 'Treffpunkt', sortable: true, searchable: true },
+        { prop: 'ortsgruppeName', name: 'Ortsgruppe', sortable: true, searchable: true },
+        { prop: 'zeit', name: 'Startzeit', sortable: true, searchable: true },
+        { prop: 'teilnehmerzahl', name: 'Teilnehmerzahl', sortable: true, searchable: true },
+        { prop: '_action', name: ' ', actionName: 'actionCommon' }
+      ]
     };
   },
   computed: {
@@ -31,14 +44,30 @@ export default {
     },
     demos() {
 
-      return this.$store.getters['demos/getItems'];
+      let demos = this.$store.getters['demos/getItems'];
+
+      return this.$store.getters['demos/getItems'].map((demo) => {
+
+        if (this.localgroups) {
+          
+          const localgroup = this.localgroups.find((localgroup) => localgroup.id === demo.ortsgruppe_id);
+
+          demo.ortsgruppeName = localgroup ? localgroup.name : '';
+        }
+
+        return demo;
+      });
     },
     user() {
       return this.$store.getters['getUser'];
+    },
+    windowHeight() {
+
+      return window.innerHeight * 0.9;
     }
   },
   components: {
-   
+    VueVirtualTable
   },
   methods: {
     localgroupName(demo) {
@@ -50,6 +79,10 @@ export default {
       } 
 
       return '';
+    },
+    show(index, row) {
+
+      this.$router.push('demos/' + row.id);
     }
   },
   beforeCreate() {
