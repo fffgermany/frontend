@@ -82,7 +82,7 @@ export default {
     },
     show(index, row) {
 
-      this.$router.push('demos/' + row.ortsgruppe_id);
+      this.$router.push('demos/' + row.id);
     }
   },
   beforeCreate() {
