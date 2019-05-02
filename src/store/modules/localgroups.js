@@ -1,4 +1,4 @@
-import { getList } from '../actions.js';
+import { getList, update } from '../actions.js';
 import { setState } from '../mutations.js';
 import L from 'leaflet'
 
@@ -23,7 +23,8 @@ const mutations = {
 };
 
 const actions = {
-    getList: getList('ortsgruppe')
+    getList: getList('ortsgruppe'),
+    update: update('ortsgruppe')
 };
 
 export default {

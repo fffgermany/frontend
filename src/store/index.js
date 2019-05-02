@@ -10,6 +10,7 @@ const fetchConfig = (ctx) => {
 
 import demos from './modules/demos.js';
 import localgroups from './modules/localgroups.js';
+import propaganda from './modules/propaganda.js';
 
 Vue.use(Vuex);
 
@@ -17,10 +18,17 @@ export default new Vuex.Store({
   namespaced: true,
   modules: {
     demos,
-    localgroups
+    localgroups,
+    propaganda
   },
   state: {
-    user: {}
+    user: {
+      apikey: '$2y$10$bgFE03/WU9F/Q3Y4.J/g1OYuUS/8ov8E/EsmNNpR8vf1pYGmzbLq.',
+      user: {
+        id: 31
+      }
+    },
+
   },
   mutations: {
     user(state, user) {
@@ -29,9 +37,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getUser(state) {
+    getUser: (state) => () => {
 
-      if (state.user.id) {
+      if (state.user.apikey) {
         return state.user;
       } 
       
@@ -47,7 +55,7 @@ export default new Vuex.Store({
     signin(context, model) {
 
       return  axios
-        .post(baseConfig.baseUrl + 'login', fetchConfig(context), model)
+        .post('http://5.230.142.193/api/login', model, fetchConfig(context))
         .then((response) => {
 
           context.commit('user', response.data);

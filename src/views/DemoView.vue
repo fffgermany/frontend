@@ -1,6 +1,11 @@
 <template>
   <div class="fff-demo-view">
-    <form>
+    <ul class="fff-demo-view__tab-header">
+      <li class="fff-demo-view__tab-link" @click="tab = 'demo'">demo</li>
+      <li class="fff-demo-view__tab-link" @click="tab = 'ortsgruppe'">ortsgruppe</li>
+      <li class="fff-demo-view__tab-link" @click="tab = 'propaganda'">demopropaganda</li>
+    </ul>
+    <form v-if="tab === 'demo'" class="fff-demo-view__tab fff-demo-view__tab--demo">
       <div>
         <input class="fff-signup__input fff-input"
               v-model="demo.ort"
@@ -13,7 +18,7 @@
         <input class="fff-signup__input fff-input"
               v-model="demo.zeit"
               name="zeit"
-              type="datetime"
+              type="datetime-local"
               :disabled="disabled"
               placeholder="Zeit"/>
       </div>
@@ -30,9 +35,17 @@
       </div>
       <div>
         <input class="fff-signup__input fff-input"
+              v-model="demo.teilnehmerzahl"
+              name="teilnehmerzahl"
+              type="number"
+              :disabled="disabled"
+              placeholder="Teilnehmerzahl"/>
+      </div>
+      <div>
+        <input class="fff-signup__input fff-input"
               v-model="demo.beschreibung"
               name="beschreibung"
-              type="text"
+              type="textarea"
               :disabled="disabled"
               placeholder="Beschreibung"/>
       </div>
@@ -40,12 +53,145 @@
         <input class="fff-signup__input fff-input"
               v-model="demo.link"
               name="link"
-              type="text"
+              type="url"
               :disabled="disabled"
               placeholder="Link"/>
       </div>
       <div>
-        <button @click="submit">speichern</button>
+        <input class="fff-signup__input fff-input"
+              v-model="demo.lat"
+              name="lat"
+              type="number"
+              :disabled="disabled"
+              placeholder="Lat"/>
+        <input class="fff-signup__input fff-input"
+              v-model="demo.lng"
+              name="lng"
+              type="number"
+              :disabled="disabled"
+              placeholder="Lng"/>
+      </div>
+      <div v-if="!disabled">
+        <button @click="submit($event, 'demos', demo)">speichern</button>
+        <button @click="erase($event, 'demos', demo)">löschen</button>
+      </div>
+    </form>
+    <form v-if="tab === 'propaganda'" class="fff-demo-view__tab fff-demo-view__tab--propaganda">
+      <div>
+        <input class="fff-signup__input fff-input"
+              v-model="propaganda.name"
+              name="name"
+              type="text"
+              :disabled="disabled"
+              placeholder="Name"/>
+      </div>
+      <div>
+        <textarea class="fff-signup__input fff-input"
+              v-model="propaganda.content"
+              name="content"
+              :disabled="disabled"
+              placeholder="Content"/>
+      </div>
+      <div v-if="!disabled">
+        <button @click="submit($event, 'propaganda', propaganda)">speichern</button>
+      </div>
+    </form>
+    <form v-if="tab === 'ortsgruppe'" class="fff-demo-view__tab fff-demo-view__tab--ortsgruppe">
+      <div>
+        <input class="fff-signup__input fff-input"
+              v-model="ortsgruppe.name"
+              name="name"
+              type="text"
+              :disabled="disabled"
+              placeholder="Name"/>
+      </div>
+      <div>
+        <input class="fff-signup__input fff-input"
+              v-model="ortsgruppe.lat"
+              name="lat"
+              type="number"
+              :disabled="disabled"
+              placeholder="Lat"/>
+        <input class="fff-signup__input fff-input"
+              v-model="ortsgruppe.lng"
+              name="lng"
+              type="number"
+              :disabled="disabled"
+              placeholder="Lng"/>
+      </div>
+      <div>
+        <textarea class="fff-signup__input fff-input"
+              v-model="ortsgruppe.description"
+              name="description"
+              :disabled="disabled"
+              placeholder="Beschreibung"/>
+      </div>
+      <div>
+        <input class="fff-signup__input fff-input"
+              v-model="ortsgruppe.twitter"
+              name="twitter"
+              type="text"
+              :disabled="disabled"
+              placeholder="Twitter"/>
+      </div>
+      <div>
+        <input class="fff-signup__input fff-input"
+              v-model="ortsgruppe.facebook"
+              name="facebook"
+              type="text"
+              :disabled="disabled"
+              placeholder="Facebook"/>
+      </div>
+      <div>
+        <input class="fff-signup__input fff-input"
+              v-model="ortsgruppe.email"
+              name="email"
+              type="text"
+              :disabled="disabled"
+              placeholder="Email"/>
+      </div>
+      <div>
+        <input class="fff-signup__input fff-input"
+              v-model="ortsgruppe.telnr"
+              name="telnr"
+              type="text"
+              :disabled="disabled"
+              placeholder="Telefon Nummer"/>
+      </div>
+      <div>
+        <input class="fff-signup__input fff-input"
+              v-model="ortsgruppe.whatsapp"
+              name="whatsapp"
+              type="text"
+              :disabled="disabled"
+              placeholder="Whatsapp"/>
+      </div>
+      <div>
+        <input class="fff-signup__input fff-input"
+              v-model="ortsgruppe.telegram"
+              name="telegram"
+              type="text"
+              :disabled="disabled"
+              placeholder="Telegram"/>
+      </div>
+      <div>
+        <input class="fff-signup__input fff-input"
+              v-model="ortsgruppe.signalmsg"
+              name="signalmsg"
+              type="text"
+              :disabled="disabled"
+              placeholder="signalmsg"/>
+      </div>
+      <div>
+        <input class="fff-signup__input fff-input"
+              v-model="ortsgruppe.instagram"
+              name="instagram"
+              type="text"
+              :disabled="disabled"
+              placeholder="instagram"/>
+      </div>
+      <div v-if="!disabled">
+        <button @click="submit($event, 'localgroups', ortsgruppe)">speichern</button>
       </div>
     </form>
   </div>
@@ -57,7 +203,8 @@ export default {
   name: 'demos',
   data() {
     return {
-      filterByAdminID: false
+      filterByAdminID: false,
+      tab: 'demo'
     };
   },
   computed: {
@@ -75,8 +222,39 @@ export default {
 
       return {};
     },
+    ortsgruppe () {
+
+      if (this.demo && this.localgroups) {
+
+        return this.localgroups.find((og) => og.id === this.demo.ortsgruppe_id);
+      }
+    },
+    propaganda() {
+
+      let propagandaList = this.$store.getters['propaganda/getItems'];
+
+      if (propagandaList.length > 0 && this.demo) {
+
+        let propangada = propagandaList.find((propaganda) => propaganda.demo === this.demo.id);
+
+        if (propangada) {
+          return propangada;
+        }
+      }
+
+      return {
+        demo: this.demo.id,
+        ortsgruppe_id: this.demo.ortsgruppe_id
+      };
+    },
     disabled() {
-      
+
+      let user = this.$store.getters['getUser']();
+
+      if (this.$route.params.id === 'new' || (user.user && user.user.id === this.demo.inserter_id)) {
+        return false;
+      } 
+
       return true;
     }
   },
@@ -84,15 +262,35 @@ export default {
    
   },
   methods: {
-    submit(event) {
+    submit(event, namespace, model) {
 
       event.preventDefault();
+
+      if (model.id || model.id === 0) {
+
+        this.$store.dispatch(namespace + '/update', model || this.demo);    
+      } else {
+
+        this.$store.dispatch(namespace + '/create', model || this.demo);
+      }
+    },
+    erase(event) {
+
+      event.preventDefault();
+
+      this.$store.dispatch(namespace + '/delete', this.demo)
+        .then(() => {
+          this.$router.push({ name: 'demoList' })
+        })
     }
   },
   beforeCreate() {
 
+    console.log(this);
+
     this.$store.dispatch('demos/getList');
     this.$store.dispatch('localgroups/getList');
+    this.$store.dispatch('propaganda/getList');
   }
 };
 </script>

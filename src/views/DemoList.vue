@@ -1,8 +1,13 @@
 <template>
   <div class="fff-demo-list">
     <div v-if="user">
-        <input type="checkbox" v-model="filterByAdminID" class="fff-input"/>
-        Zeige nur meine Demos
+        <div>
+          <input type="checkbox" v-model="filterByAdminID" class="fff-input"/>
+          Zeige nur meine Demos
+        </div>
+        <div>
+          <button @click="addNewDemo">Neue Demo anlegen</button>
+        </div>
     </div>
 
     <vue-virtual-table
@@ -70,6 +75,10 @@ export default {
     VueVirtualTable
   },
   methods: {
+    addNewDemo(){
+
+      this.$router.push({ name: 'demoView', params: { id: 'new' }})
+    },
     localgroupName(demo) {
 
       const localgroup = this.localgroups.find((localgroup) => localgroup.id === demo.ortsgruppe_id);

@@ -16,9 +16,9 @@ const fetchConfig = (ctx) => {
  * @returns
  */
 
-export const getList = (source) => (context) => {
+export const getList = (source) => (context, forceUpdate) => {
 
-    if (context.state.list.length > 0) {
+    if (context.state.list.length > 0 && !forceUpdate) {
         return 
     }
 
@@ -34,4 +34,14 @@ export const getList = (source) => (context) => {
                         context.commit('setList', res.data);
                     })            
         })
+};
+
+export const update = (source) => (context, model) => {
+
+    return axios
+            .put('http://5.230.142.193/api/' + source + '/' + model.id, model, fetchConfig(context))
+            .then((response) => {
+
+                // console.log(context, model, response);
+            });
 };

@@ -98,7 +98,6 @@ export default {
     submit(e) {
       e.preventDefault();
 
-      console.log(this);
       this.$store.dispatch('signup', this.model)
         .then((response) => {
           console.log(response);
