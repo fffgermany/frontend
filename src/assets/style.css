@@ -14,6 +14,7 @@ body {
 .main-container {
     background: white;
     max-width: 1200px;
+    width: 100%;
     margin: 10px auto;
     padding: 20px;
 }
@@ -33,4 +34,16 @@ button {
 
 button:hover {
     background: var(--primary-color-light);
+}
+
+input:not([type=checkbox]), select, textarea {
+    width: 100% !important;
+    background-color: #e9e9e9;
+    border: 0;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+textarea {
+    resize: vertical;
 }

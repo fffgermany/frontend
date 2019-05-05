@@ -71,7 +71,7 @@ export default {
       return this.$store.getters.getUser;
     },
     windowHeight() {
-      return window.innerHeight * 0.9;
+      return window.innerHeight * 0.7;
     },
   },
   components: {
