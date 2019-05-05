@@ -80,10 +80,10 @@ export default {
         name: null,
         ortsgruppe_id: null,
         password: null,
-        thesecret: null
+        thesecret: null,
       },
       signupSuccess: false,
-      error: {}
+      error: {},
     };
   },
   computed: {
@@ -105,8 +105,8 @@ export default {
         .catch((err) => {
           console.log(err);
           this.error = err.response.data;
-        })
-    }
+        });
+    },
   },
   beforeCreate() {
     this.$store.dispatch('localgroups/getList');

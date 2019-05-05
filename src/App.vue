@@ -21,7 +21,7 @@ export default {
     width: 100%;
     margin: 0;
   }
-  
+
   #app {
     background: #1B7340 url(https://fridaysforfuture.de/erde_hell.svg);
     background-color: rgb(27, 115, 64);

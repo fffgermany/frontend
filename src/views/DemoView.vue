@@ -204,17 +204,15 @@ export default {
   data() {
     return {
       filterByAdminID: false,
-      tab: 'demo'
+      tab: 'demo',
     };
   },
   computed: {
     localgroups() {
-
       return this.$store.getters['localgroups/getItems'];
     },
     demo() {
-
-      let demo = this.$store.getters['demos/getItemByID'](this.$router.currentRoute.params.id);
+      const demo = this.$store.getters['demos/getItemByID'](this.$router.currentRoute.params.id);
 
       if (demo) {
         return demo;
@@ -222,20 +220,16 @@ export default {
 
       return {};
     },
-    ortsgruppe () {
-
+    ortsgruppe() {
       if (this.demo && this.localgroups) {
-
-        return this.localgroups.find((og) => og.id === this.demo.ortsgruppe_id);
+        return this.localgroups.find(og => og.id === this.demo.ortsgruppe_id);
       }
     },
     propaganda() {
-
-      let propagandaList = this.$store.getters['propaganda/getItems'];
+      const propagandaList = this.$store.getters['propaganda/getItems'];
 
       if (propagandaList.length > 0 && this.demo) {
-
-        let propangada = propagandaList.find((propaganda) => propaganda.demo === this.demo.id);
+        const propangada = propagandaList.find(propaganda => propaganda.demo === this.demo.id);
 
         if (propangada) {
           return propangada;
@@ -244,54 +238,48 @@ export default {
 
       return {
         demo: this.demo.id,
-        ortsgruppe_id: this.demo.ortsgruppe_id
+        ortsgruppe_id: this.demo.ortsgruppe_id,
       };
     },
     disabled() {
-
-      let user = this.$store.getters['getUser']();
+      const user = this.$store.getters.getUser();
 
       if (this.$route.params.id === 'new' || (user.user && user.user.id === this.demo.inserter_id)) {
         return false;
-      } 
+      }
 
       return true;
-    }
+    },
   },
   components: {
-   
+
   },
   methods: {
     submit(event, namespace, model) {
-
       event.preventDefault();
 
       if (model.id || model.id === 0) {
-
-        this.$store.dispatch(namespace + '/update', model || this.demo);    
+        this.$store.dispatch(`${namespace}/update`, model || this.demo);
       } else {
-
-        this.$store.dispatch(namespace + '/create', model || this.demo);
+        this.$store.dispatch(`${namespace}/create`, model || this.demo);
       }
     },
     erase(event) {
-
       event.preventDefault();
 
-      this.$store.dispatch(namespace + '/delete', this.demo)
+      this.$store.dispatch(`${namespace}/delete`, this.demo)
         .then(() => {
-          this.$router.push({ name: 'demoList' })
-        })
-    }
+          this.$router.push({ name: 'demoList' });
+        });
+    },
   },
   beforeCreate() {
-
     console.log(this);
 
     this.$store.dispatch('demos/getList');
     this.$store.dispatch('localgroups/getList');
     this.$store.dispatch('propaganda/getList');
-  }
+  },
 };
 </script>
 
