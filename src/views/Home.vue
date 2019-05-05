@@ -5,28 +5,32 @@
            :center="center" 
            :zoom=7 
            :options="mapOptions">
-      <l-tile-layer :url="url" 
-                    :attribution="attribution"/>
-      <l-marker @click="clickMarker(demo)" 
-                v-for="demo in demos" 
-                :icon="demo.icon" 
-                :lat-lng="demo.latLng" 
-                :key="demo.id"/>
+    <l-tile-layer :url="url" 
+                  :attribution="attribution"/>
+    <l-marker @click="clickMarker(demo)" 
+              v-for="demo in demos" 
+              :icon="demo.icon" 
+              :lat-lng="demo.latLng" 
+              :key="demo.id">
+      <l-popup>
+        <fffMarkerDetails :model="selectedMarker"/>
+      </l-popup>
+    </l-marker>
     </l-map>
-    <fffMarkerDetails :model="selectedMarker" 
-                      @interface="handleCloseMarkerDetails"/>
+
   </div>
 </template>
 
 <script>
 
 import L from 'leaflet';
-import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
+import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet';
 
 import fffMarkerDetails from '../components/markerDetails.vue';
 
 export default {
   name: 'home',
+
   data() {
     return {
       mapOptions: {},
@@ -36,32 +40,33 @@ export default {
       selectedMarker: null
     };
   },
+
   computed: {
 
     demos() {
-
       return this.$store.getters['demos/getItems'];
     }
   },
+
   components: {
     LMap,
     LTileLayer,
     LMarker,
+    LPopup,
     fffMarkerDetails
   },
+
   methods: {
     clickMarker(demo) {
-
-      console.log(demo);
       this.selectedMarker = demo;
     },
+
     handleCloseMarkerDetails() {
-
       this.selectedMarker = null;
-    } 
+    }
   },
-  beforeCreate() {
 
+  beforeCreate() {
     this.$store.dispatch('demos/getList');
     this.$store.dispatch('localgroups/getList');
   }
