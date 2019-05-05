@@ -1,9 +1,9 @@
 <template>
   <div class="fff-demo-view main-container">
     <ul class="fff-demo-view__tab-header">
-      <li class="fff-demo-view__tab-link" @click="tab = 'demo'">demo</li>
-      <li class="fff-demo-view__tab-link" @click="tab = 'ortsgruppe'">ortsgruppe</li>
-      <li class="fff-demo-view__tab-link" @click="tab = 'propaganda'">demopropaganda</li>
+      <li class="fff-demo-view__tab-link" :class="{ active: tab == 'demo' }" @click="tab = 'demo'">Demo</li>
+      <li class="fff-demo-view__tab-link" :class="{ active: tab == 'ortsgruppe' }" @click="tab = 'ortsgruppe'">Ortsgruppe</li>
+      <li class="fff-demo-view__tab-link" :class="{ active: tab == 'propaganda' }" @click="tab = 'propaganda'">Demopropaganda</li>
     </ul>
     <form v-if="tab === 'demo'" class="fff-demo-view__tab fff-demo-view__tab--demo">
       <div>
@@ -284,5 +284,38 @@ export default {
 </script>
 
 <style lang="scss">
+.fff-demo-view__tab-header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-left: 0;
+  margin: 20px 0px 22px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
 
+.fff-demo-view__tab-link {
+  list-style-type: none;
+  text-indent: 0;
+  margin-bottom: -1px;
+  color: #337ab7;
+  margin-right: 2px;
+  line-height: 1.4;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.fff-demo-view__tab-link.active {
+  color: #555;
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-color: rgb(221, 221, 221);
+  border-bottom-color: transparent;
+}
+
+.fff-demo-view__tab-link:hover {
+  background: #f3f3f3;
+}
 </style>
