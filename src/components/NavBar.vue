@@ -14,12 +14,12 @@ export default {
 
 <style scoped>
 .navbar {
-    background: var(--primary-color);
+    background: white;
     padding: 1px 10px;
 }
 
 a {
-    color: white;
+    color: var(--primary-color);
     text-decoration: none;
 }
 </style>

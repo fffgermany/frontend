@@ -1,5 +1,5 @@
 <template>
-  <div class="fff-signup">
+  <div class="fff-signup main-container">
     <form v-if="!signupSuccess">
       <div>
         <input class="fff-signup__input fff-input"

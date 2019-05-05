@@ -1,5 +1,5 @@
 <template>
-  <div class="fff-signin">
+  <div class="fff-signin main-container">
     <form v-if="!signinSuccess">
       <div>
         <input class="fff-signin__input fff-input"

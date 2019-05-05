@@ -1,5 +1,5 @@
 <template>
-  <div class="fff-demo-view">
+  <div class="fff-demo-view main-container">
     <ul class="fff-demo-view__tab-header">
       <li class="fff-demo-view__tab-link" @click="tab = 'demo'">demo</li>
       <li class="fff-demo-view__tab-link" @click="tab = 'ortsgruppe'">ortsgruppe</li>

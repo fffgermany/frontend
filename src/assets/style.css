@@ -1,7 +1,19 @@
 :root {
     --primary-color: #1B7340;
+    --primary-color-light: #90D3ED;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
     font-family: sans-serif;
+}
+
+.main-container {
+    background: white;
+    max-width: 1200px;
+    margin: 10px auto;
+    padding: 20px;
 }
