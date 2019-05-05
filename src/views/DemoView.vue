@@ -1,9 +1,9 @@
 <template>
-  <div class="fff-demo-view">
+  <div class="fff-demo-view main-container">
     <ul class="fff-demo-view__tab-header">
-      <li class="fff-demo-view__tab-link" @click="tab = 'demo'">demo</li>
-      <li class="fff-demo-view__tab-link" @click="tab = 'ortsgruppe'">ortsgruppe</li>
-      <li class="fff-demo-view__tab-link" @click="tab = 'propaganda'">demopropaganda</li>
+      <li class="fff-demo-view__tab-link" :class="{ active: tab == 'demo' }" @click="tab = 'demo'">Demo</li>
+      <li class="fff-demo-view__tab-link" :class="{ active: tab == 'ortsgruppe' }" @click="tab = 'ortsgruppe'">Ortsgruppe</li>
+      <li class="fff-demo-view__tab-link" :class="{ active: tab == 'propaganda' }" @click="tab = 'propaganda'">Demopropaganda</li>
     </ul>
     <form v-if="tab === 'demo'" class="fff-demo-view__tab fff-demo-view__tab--demo">
       <div>
@@ -204,17 +204,15 @@ export default {
   data() {
     return {
       filterByAdminID: false,
-      tab: 'demo'
+      tab: 'demo',
     };
   },
   computed: {
     localgroups() {
-
       return this.$store.getters['localgroups/getItems'];
     },
     demo() {
-
-      let demo = this.$store.getters['demos/getItemByID'](this.$router.currentRoute.params.id);
+      const demo = this.$store.getters['demos/getItemByID'](this.$router.currentRoute.params.id);
 
       if (demo) {
         return demo;
@@ -222,20 +220,16 @@ export default {
 
       return {};
     },
-    ortsgruppe () {
-
+    ortsgruppe() {
       if (this.demo && this.localgroups) {
-
-        return this.localgroups.find((og) => og.id === this.demo.ortsgruppe_id);
+        return this.localgroups.find(og => og.id === this.demo.ortsgruppe_id);
       }
     },
     propaganda() {
-
-      let propagandaList = this.$store.getters['propaganda/getItems'];
+      const propagandaList = this.$store.getters['propaganda/getItems'];
 
       if (propagandaList.length > 0 && this.demo) {
-
-        let propangada = propagandaList.find((propaganda) => propaganda.demo === this.demo.id);
+        const propangada = propagandaList.find(propaganda => propaganda.demo === this.demo.id);
 
         if (propangada) {
           return propangada;
@@ -244,57 +238,84 @@ export default {
 
       return {
         demo: this.demo.id,
-        ortsgruppe_id: this.demo.ortsgruppe_id
+        ortsgruppe_id: this.demo.ortsgruppe_id,
       };
     },
     disabled() {
-
-      let user = this.$store.getters['getUser']();
+      const user = this.$store.getters.getUser();
 
       if (this.$route.params.id === 'new' || (user.user && user.user.id === this.demo.inserter_id)) {
         return false;
-      } 
+      }
 
       return true;
-    }
+    },
   },
   components: {
-   
+
   },
   methods: {
     submit(event, namespace, model) {
-
       event.preventDefault();
 
       if (model.id || model.id === 0) {
-
-        this.$store.dispatch(namespace + '/update', model || this.demo);    
+        this.$store.dispatch(`${namespace}/update`, model || this.demo);
       } else {
-
-        this.$store.dispatch(namespace + '/create', model || this.demo);
+        this.$store.dispatch(`${namespace}/create`, model || this.demo);
       }
     },
     erase(event) {
-
       event.preventDefault();
 
-      this.$store.dispatch(namespace + '/delete', this.demo)
+      this.$store.dispatch(`${namespace}/delete`, this.demo)
         .then(() => {
-          this.$router.push({ name: 'demoList' })
-        })
-    }
+          this.$router.push({ name: 'demoList' });
+        });
+    },
   },
   beforeCreate() {
-
     console.log(this);
 
     this.$store.dispatch('demos/getList');
     this.$store.dispatch('localgroups/getList');
     this.$store.dispatch('propaganda/getList');
-  }
+  },
 };
 </script>
 
 <style lang="scss">
+.fff-demo-view__tab-header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-left: 0;
+  margin: 20px 0px 22px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
 
+.fff-demo-view__tab-link {
+  list-style-type: none;
+  text-indent: 0;
+  margin-bottom: -1px;
+  color: #337ab7;
+  margin-right: 2px;
+  line-height: 1.4;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.fff-demo-view__tab-link.active {
+  color: #555;
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-color: rgb(221, 221, 221);
+  border-bottom-color: transparent;
+}
+
+.fff-demo-view__tab-link:hover {
+  background: #f3f3f3;
+}
 </style>
