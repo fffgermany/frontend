@@ -78,4 +78,8 @@ export default {
     height: 100%;
     width: 100%;
   }
+
+  .leaflet-popup-content {
+    width: 200px;
+  }
 </style>

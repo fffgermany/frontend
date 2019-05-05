@@ -8,6 +8,9 @@
             <span class="key">Datum: </span>
             <span class="value">{{model.zeit}}</span>
         </div>
+        <div class="button-wrapper">
+            <button @click="show">zur Demo</button>
+        </div>
     </div>
 </template>
 
@@ -22,6 +25,12 @@ export default {
         model: Object,
     },
 
+    methods: {
+        show() {
+            this.$router.push(`demos/${this.model.id}`);
+        }
+    },
+
     computed: {
         localgroup() {
             return this.$store.getters['localgroups/getItemByRelatedModel'](this.model);
@@ -31,12 +40,12 @@ export default {
 </script>
 
 <style lang="scss">
-
-.fff-marker-details {
-    width: 200px;
-}
-
 .key {
     font-weight: bold;
+}
+
+.button-wrapper {
+    margin-top: 10px;
+    text-align: center;
 }
 </style>
