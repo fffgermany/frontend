@@ -60,10 +60,6 @@ export default {
     clickMarker(demo) {
       this.selectedMarker = demo;
     },
-
-    handleCloseMarkerDetails() {
-      this.selectedMarker = null;
-    }
   },
 
   beforeCreate() {
@@ -80,6 +76,6 @@ export default {
   }
 
   .leaflet-popup-content {
-    width: 200px;
+    width: 250px;
   }
 </style>

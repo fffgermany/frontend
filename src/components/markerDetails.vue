@@ -1,12 +1,12 @@
 <template>
-    <div class="fff-marker-details">
+    <div v-if="model" class="fff-marker-details">
         <div class="fff-marker-details__">
             <span class="key">Ort: </span>
             <span class="value">{{model.ort}} (Ortsgruppe: {{localgroup.name}})</span>
         </div>
         <div class="fff-marker-details__">
             <span class="key">Datum: </span>
-            <span class="value">{{model.zeit}}</span>
+            <span class="value">{{readableDate}}</span>
         </div>
         <div class="button-wrapper">
             <button @click="show">zur Demo</button>
@@ -34,7 +34,15 @@ export default {
     computed: {
         localgroup() {
             return this.$store.getters['localgroups/getItemByRelatedModel'](this.model);
-        }        
+        },
+
+        readableDate() {
+            const date = new Date(this.model.zeit);
+            return date.toLocaleDateString(
+                'de-DE', 
+                {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit'}
+            ) + ' Uhr'
+        }
     }
 };
 </script>
