@@ -2,8 +2,8 @@
   <div class="fff-demo-view main-container">
     <ul class="fff-demo-view__tab-header">
       <li class="fff-demo-view__tab-link" :class="{ active: tab == 'demo' }" @click="tab = 'demo'">Demo</li>
-      <li class="fff-demo-view__tab-link" :class="{ active: tab == 'ortsgruppe' }" @click="tab = 'ortsgruppe'">Ortsgruppe</li>
-      <li class="fff-demo-view__tab-link" :class="{ active: tab == 'propaganda' }" @click="tab = 'propaganda'">Demopropaganda</li>
+      <li v-if="!tabHidden" class="fff-demo-view__tab-link" :class="{ active: tab == 'ortsgruppe' }" @click="tab = 'ortsgruppe'">Ortsgruppe</li>
+      <li v-if="!tabHidden" class="fff-demo-view__tab-link" :class="{ active: tab == 'propaganda' }" @click="tab = 'propaganda'">Demopropaganda</li>
     </ul>
     <form v-if="tab === 'demo'" class="fff-demo-view__tab fff-demo-view__tab--demo">
       <div>
@@ -15,6 +15,8 @@
               placeholder="Ort"/>
       </div>
       <div>
+        <!-- <datetime type="datetime" v-model="demo.zeit"></datetime> -->
+
         <input class="fff-signup__input fff-input"
               v-model="demo.zeit"
               name="zeit"
@@ -58,6 +60,15 @@
               placeholder="Link"/>
       </div>
       <div>
+        <input class="fff-signup__input fff-input"
+              v-model="addressToLatLng"
+              name="addressToLatLng"
+              type="text"
+              :disabled="disabled"
+              placeholder="Gib die Adresse des Startpunktes ein und wir ermitteln die Koordinaten für dich"/>
+      </div>
+      <div class="fff-input__lat-lng">
+        <button :disabled="!addressToLatLng" @click="checkAdress($event)">Suche Koordination</button>
         <input class="fff-signup__input fff-input"
               v-model="demo.lat"
               name="lat"
@@ -199,12 +210,15 @@
 
 <script>
 
+import axios from 'axios';
+
 export default {
   name: 'demos',
   data() {
     return {
       filterByAdminID: false,
       tab: 'demo',
+      addressToLatLng: null
     };
   },
   computed: {
@@ -241,8 +255,12 @@ export default {
         ortsgruppe_id: this.demo.ortsgruppe_id,
       };
     },
+    tabHidden() {
+
+      return this.$route.params.id === 'new';
+    },
     disabled() {
-      const user = this.$store.getters.getUser();
+      const user = this.$store.getters['getUser'];
 
       if (this.$route.params.id === 'new' || (user.user && user.user.id === this.demo.inserter_id)) {
         return false;
@@ -261,7 +279,11 @@ export default {
       if (model.id || model.id === 0) {
         this.$store.dispatch(`${namespace}/update`, model || this.demo);
       } else {
-        this.$store.dispatch(`${namespace}/create`, model || this.demo);
+        this.$store.dispatch(`${namespace}/create`, model || this.demo)
+          .then((response, err) => {
+            
+            this.$router.push({ name: 'demoList' });
+          });
       }
     },
     erase(event) {
@@ -272,6 +294,21 @@ export default {
           this.$router.push({ name: 'demoList' });
         });
     },
+    checkAdress(event) {
+
+      event.preventDefault();
+
+      return axios
+          .get('https://nominatim.openstreetmap.org/search?format=json&q=' + this.addressToLatLng)
+          .then(this.setLatLng);
+    },
+    setLatLng(response) {
+        if (response.data[0]) {
+          this.demo.lat = response.data[0].lat;
+          this.demo.lng = response.data[0].lon;
+          this.$forceUpdate();
+        }  
+    }
   },
   beforeCreate() {
     console.log(this);
@@ -318,4 +355,18 @@ export default {
 .fff-demo-view__tab-link:hover {
   background: #f3f3f3;
 }
+
+.fff-input__lat-lng {
+  display: flex;
+
+  button {
+    flex-basis: 100%;
+    margin: 5px 5px 5px 0;
+
+    &:disabled {
+      background: grey;
+    }
+  }
+}
+
 </style>
