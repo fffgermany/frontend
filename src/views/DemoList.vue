@@ -68,7 +68,7 @@ export default {
       });
     },
     user() {
-      return this.$store.getters['getUser'];
+      return this.$store.getters['getUser']();
     },
     windowHeight() {
       return window.innerHeight * 0.7;

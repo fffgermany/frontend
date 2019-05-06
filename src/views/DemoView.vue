@@ -260,7 +260,7 @@ export default {
       return this.$route.params.id === 'new';
     },
     disabled() {
-      const user = this.$store.getters['getUser'];
+      const user = this.$store.getters['getUser']();
 
       if (this.$route.params.id === 'new' || (user.user && user.user.id === this.demo.inserter_id)) {
         return false;
