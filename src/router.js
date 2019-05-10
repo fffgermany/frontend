@@ -4,7 +4,7 @@ import Home from './views/Home.vue';
 import Signin from './views/Signin.vue';
 import Signup from './views/Signup.vue';
 import DemoList from './views/DemoList.vue';
-import DemoView from './views/DemoView.vue';
+import DemoEdit from './views/DemoEdit.vue';
 
 Vue.use(Router);
 
@@ -18,9 +18,9 @@ export default new Router({
       component: DemoList,
     },
     {
-      path: '/demos/:id',
-      name: 'demoView',
-      component: DemoView,
+      path: '/demos/:id/edit',
+      name: 'demoEdit',
+      component: DemoEdit,
     },
     {
       path: '/signin',
