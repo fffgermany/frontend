@@ -13,7 +13,7 @@
               :lat-lng="demo.latLng" 
               :key="demo.id">
       <l-popup>
-        <fffMarkerDetails :model="selectedMarker"/>
+        <MarkerDetails :model="selectedMarker"/>
       </l-popup>
     </l-marker>
     </l-map>
@@ -26,7 +26,7 @@
 import L from 'leaflet';
 import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet';
 
-import fffMarkerDetails from '../components/markerDetails.vue';
+import MarkerDetails from '@/components/MarkerDetails.vue';
 
 export default {
   name: 'home',
@@ -53,7 +53,7 @@ export default {
     LTileLayer,
     LMarker,
     LPopup,
-    fffMarkerDetails
+    MarkerDetails
   },
 
   methods: {

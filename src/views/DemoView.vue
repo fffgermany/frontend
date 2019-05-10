@@ -1,5 +1,7 @@
 <template>
     <div class="fff-demo-view main-container">
+        <EditButton :to="{ name: 'demoEdit', id: demo.id }"/>
+        
         <div class="map-placeholder">
             <div>
                 <p>TODO: Karte</p>
@@ -36,11 +38,13 @@
 </template>
 
 <script>
-
 import axios from 'axios';
+import EditButton from '@/components/EditButton'
 
 export default {
     name: 'demo-view',
+
+    components: { EditButton },
 
     computed: {
         localgroups() {
