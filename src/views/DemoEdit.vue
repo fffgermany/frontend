@@ -1,11 +1,11 @@
 <template>
-  <div class="fff-demo-view main-container">
-    <ul class="fff-demo-view__tab-header">
-      <li class="fff-demo-view__tab-link" :class="{ active: tab == 'demo' }" @click="tab = 'demo'">Demo</li>
-      <li v-if="!tabHidden" class="fff-demo-view__tab-link" :class="{ active: tab == 'ortsgruppe' }" @click="tab = 'ortsgruppe'">Ortsgruppe</li>
-      <li v-if="!tabHidden" class="fff-demo-view__tab-link" :class="{ active: tab == 'propaganda' }" @click="tab = 'propaganda'">Demopropaganda</li>
+  <div class="fff-demo-edit main-container">
+    <ul class="fff-demo-edit__tab-header">
+      <li class="fff-demo-edit__tab-link" :class="{ active: tab == 'demo' }" @click="tab = 'demo'">Demo</li>
+      <li v-if="!tabHidden" class="fff-demo-edit__tab-link" :class="{ active: tab == 'ortsgruppe' }" @click="tab = 'ortsgruppe'">Ortsgruppe</li>
+      <li v-if="!tabHidden" class="fff-demo-edit__tab-link" :class="{ active: tab == 'propaganda' }" @click="tab = 'propaganda'">Demopropaganda</li>
     </ul>
-    <form v-if="tab === 'demo'" class="fff-demo-view__tab fff-demo-view__tab--demo">
+    <form v-if="tab === 'demo'" class="fff-demo-edit__tab fff-demo-edit__tab--demo">
       <div>
         <input class="fff-signup__input fff-input"
               v-model="demo.ort"
@@ -87,7 +87,7 @@
         <button @click="erase($event, 'demos', demo)">löschen</button>
       </div>
     </form>
-    <form v-if="tab === 'propaganda'" class="fff-demo-view__tab fff-demo-view__tab--propaganda">
+    <form v-if="tab === 'propaganda'" class="fff-demo-edit__tab fff-demo-edit__tab--propaganda">
       <div>
         <input class="fff-signup__input fff-input"
               v-model="propaganda.name"
@@ -107,7 +107,7 @@
         <button @click="submit($event, 'propaganda', propaganda)">speichern</button>
       </div>
     </form>
-    <form v-if="tab === 'ortsgruppe'" class="fff-demo-view__tab fff-demo-view__tab--ortsgruppe">
+    <form v-if="tab === 'ortsgruppe'" class="fff-demo-edit__tab fff-demo-edit__tab--ortsgruppe">
       <div>
         <input class="fff-signup__input fff-input"
               v-model="ortsgruppe.name"
@@ -321,7 +321,7 @@ export default {
 </script>
 
 <style lang="scss">
-.fff-demo-view__tab-header {
+.fff-demo-edit__tab-header {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   padding-left: 0;
@@ -330,7 +330,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.fff-demo-view__tab-link {
+.fff-demo-edit__tab-link {
   list-style-type: none;
   text-indent: 0;
   margin-bottom: -1px;
@@ -343,7 +343,7 @@ export default {
   cursor: pointer;
 }
 
-.fff-demo-view__tab-link.active {
+.fff-demo-edit__tab-link.active {
   color: #555;
   cursor: default;
   background-color: #fff;
@@ -352,7 +352,7 @@ export default {
   border-bottom-color: transparent;
 }
 
-.fff-demo-view__tab-link:hover {
+.fff-demo-edit__tab-link:hover {
   background: #f3f3f3;
 }
 
