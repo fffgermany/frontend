@@ -6,6 +6,7 @@ import Signup from './views/Signup.vue';
 import DemoList from './views/DemoList.vue';
 import DemoView from './views/DemoView.vue';
 import DemoEdit from './views/DemoEdit.vue';
+import GroupView from './views/GroupView.vue';
 
 Vue.use(Router);
 
@@ -27,6 +28,11 @@ export default new Router({
       path: '/demos/:id/edit',
       name: 'demoEdit',
       component: DemoEdit,
+    },
+    {
+      path: '/gruppen/:id',
+      name: 'groupView',
+      component: GroupView,
     },
     {
       path: '/signin',
