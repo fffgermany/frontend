@@ -1,6 +1,6 @@
 <template>
     <div class="fff-demo-view main-container">
-        <EditButton :to="{ name: 'demoEdit', id: demo.id }"/>
+        <EditButton v-if="isEditable" :to="{ name: 'demoEdit', id: demo.id }"/>
         
         <div class="map-placeholder">
             <div>
@@ -59,6 +59,11 @@ export default {
             if (this.demo && this.localgroups) {
                 return this.localgroups.find(og => og.id === this.demo.ortsgruppe_id);
             }
+        },
+
+        isEditable() {
+            const user = this.$store.getters['getUser']();
+            return user.user && user.user.id === this.demo.inserter_id;
         }
     },
 
