@@ -1,89 +1,69 @@
 <template>
     <div class="fff-demo-edit main-container">
         <form>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="localgroup.name"
-                    name="name"
-                    type="text"
-                    placeholder="Name"/>
+            <div class="input-wrapper">
+                <label>Name</label>
+                <input v-model="localgroup.name" placeholder="Name"/>
             </div>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="localgroup.lat"
-                    name="lat"
-                    type="number"
-                    placeholder="Lat"/>
-                <input class="fff-signup__input fff-input"
-                    v-model="localgroup.lng"
-                    name="lng"
-                    type="number"
-                    placeholder="Lng"/>
+
+            <div class="coordinates-wrapper">
+                <div class="input-wrapper">
+                    <label>Breitengrad der Koordinaten</label>
+                    <input v-model="localgroup.lat" placeholder="Breitengrad der Koordinaten"/>
+                </div>
+
+                <div class="input-wrapper">
+                    <label>Längengrad der Koordinaten</label>
+                    <input v-model="localgroup.lng" placeholder="Längengrad der Koordinaten"/>
+                </div>
             </div>
-            <div>
-                <textarea class="fff-signup__input fff-input"
-                    v-model="localgroup.description"
-                    name="description"
-                    placeholder="Beschreibung"/>
+
+            <div class="input-wrapper">
+                <label>Beschreibung</label>
+                <input v-model="localgroup.description" placeholder="Beschreibung"/>
             </div>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="localgroup.twitter"
-                    name="twitter"
-                    type="text"
-                    placeholder="Twitter"/>
+
+            <div class="input-wrapper">
+                <label>Twitter-Benutzername (ohne @)</label>
+                <input v-model="localgroup.twitter" placeholder="Twitter"/>
             </div>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="localgroup.facebook"
-                    name="facebook"
-                    type="text"
-                    placeholder="Facebook"/>
+
+            <div class="input-wrapper">
+                <label>Facebook-Benutzername</label>
+                <input v-model="localgroup.facebook" placeholder="Facebook"/>
             </div>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="localgroup.email"
-                    name="email"
-                    type="text"
-                    placeholder="Email"/>
+
+            <div class="input-wrapper">
+                <label>E-Mail-Adresse</label>
+                <input v-model="localgroup.email" placeholder="öffentliche E-Mail-Adresse" type="email"/>
             </div>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="localgroup.telnr"
-                    name="telnr"
-                    type="text"
-                    placeholder="Telefon Nummer"/>
+
+            <div class="input-wrapper">
+                <label>Telefonnummer</label>
+                <input v-model="localgroup.telnr" placeholder="Telefonnummer" type="tel"/>
             </div>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="localgroup.whatsapp"
-                    name="whatsapp"
-                    type="text"
-                    placeholder="Whatsapp"/>
+
+            <div class="input-wrapper">
+                <label>WhatsApp-Gruppenlink</label>
+                <input v-model="localgroup.whatsapp" placeholder="WhatsApp"/>
             </div>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="localgroup.telegram"
-                    name="telegram"
-                    type="text"
-                    placeholder="Telegram"/>
+
+            <div class="input-wrapper">
+                <label>Telegram-Gruppenlink</label>
+                <input v-model="localgroup.telegram" placeholder="Telegram"/>
             </div>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="localgroup.signalmsg"
-                    name="signalmsg"
-                    type="text"
-                    placeholder="signalmsg"/>
+
+            <div class="input-wrapper">
+                <label>Signal</label>
+                <input v-model="localgroup.signalmsg" placeholder="Signal"/>
             </div>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="localgroup.instagram"
-                    name="instagram"
-                    type="text"
-                    placeholder="instagram"/>
+
+            <div class="input-wrapper">
+                <label>Instagram-Benutzername (ohne @)</label>
+                <input v-model="localgroup.instagram" placeholder="Instagram"/>
             </div>
             
-            <button @click="submit($event)">speichern</button>
+            <button @click="submit($event)">Speichern</button>
         </form>
     </div>
 </template>
@@ -139,4 +119,9 @@ export default {
 </script>
 
 <style scoped>
+.coordinates-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+}
 </style>
