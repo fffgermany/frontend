@@ -29,7 +29,7 @@
 
         <div class="attribute" v-if="localgroup">
             <span class="key">Ortsgruppe: </span>
-            <span class="value">{{ localgroup.name }}</span>
+            <router-link :to="{ name: 'groupView', params: { id: localgroup.id } }" class="value">{{ localgroup.name }}</router-link>
         </div>
 
         <div class="attribute" v-if="demo.link">

@@ -38,7 +38,7 @@ export default {
             e.preventDefault();
 
             await this.$store.dispatch('signin', this.model)
-            this.$router.push('home')
+            this.$router.push({ name: 'home' })
         },
     },
 }

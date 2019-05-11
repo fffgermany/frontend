@@ -84,7 +84,7 @@ export default {
                 await this.$store.dispatch(`demos/update`, this.demo);
             }
 
-            this.$router.push({ name: 'demoList' });
+            this.$router.push({ name: 'demoView', params: { id: this.$route.params.id } });
         },
 
         async erase(event) {
@@ -122,7 +122,7 @@ export default {
         },
 
         demo() {
-            return this.$store.getters['demos/getItemByID'](this.$router.currentRoute.params.id) || {};
+            return this.$store.getters['demos/getItemByID'](this.$route.params.id) || {};
         },
 
         isNew() {
@@ -139,16 +139,16 @@ export default {
 </script>
 
 <style lang="scss">
-// .fff-input__lat-lng {
-//     display: flex;
+.fff-input__lat-lng {
+    display: flex;
 
-//     button {
-//         flex-basis: 100%;
-//         margin: 5px 5px 5px 0;
+    button {
+        flex-basis: 100%;
+        margin: 5px 5px 5px 0;
 
-//         &:disabled {
-//             background: grey;
-//         }
-//     }
-// }
+        &:disabled {
+            background: grey;
+        }
+    }
+}
 </style>
