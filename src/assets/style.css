@@ -63,6 +63,11 @@ button:hover {
     background: none;
 }
 
+.input-wrapper select {
+    width: 100% !important;
+    margin-top: 5px;
+}
+
 .input-wrapper label {
     color: #666;
     font-size: 0.8em;
