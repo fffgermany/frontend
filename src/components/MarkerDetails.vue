@@ -47,7 +47,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped>
 .key {
     font-weight: bold;
 }

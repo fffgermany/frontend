@@ -69,13 +69,16 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style>
+  .leaflet-popup-content {
+    width: 250px;
+  }
+</style>
+
+
+<style scoped>
   .home {
     height: 100%;
     width: 100%;
-  }
-
-  .leaflet-popup-content {
-    width: 250px;
   }
 </style>

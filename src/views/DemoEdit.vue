@@ -1,62 +1,46 @@
 <template>
     <div class="fff-demo-edit main-container">
-        <h2>Demo bearbeiten</h2>
+        <h2>Demo
+            <span v-if="isNew">erstellen</span>
+            <span v-else>bearbeiten</span>
+        </h2>
 
         <form>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="demo.ort"
-                    name="ort"
-                    type="text"
-                    placeholder="Ort"/>
+            <div class="input-wrapper">
+                <label>Ort</label>
+                <input v-model="demo.ort" placeholder="Ort der Demonstration"/>
             </div>
-            <div>
-                <!-- <datetime type="datetime" v-model="demo.zeit"></datetime> -->
 
-                <input class="fff-signup__input fff-input"
-                    v-model="demo.zeit"
-                    name="zeit"
-                    type="datetime-local"
-                    placeholder="Zeit"/>
+            <div class="input-wrapper">
+                <label>Zeit</label>
+                <input v-model="demo.zeit"/>
             </div>
-            <div>
-                <select class="fff-signup__input fff-input"
-                    v-model="demo.ortsgruppe_id"
-                    name="ortsgruppe"
-                    placeholder="Ortsgruppe">
-                <option v-for="localgroup in localgroups" v-bind:value="localgroup.id" v-bind:key="localgroup.id">
-                    {{ localgroup.name }}
-                </option>
-                </select>
+
+            <div class="input-wrapper">
+                <label>Ortsgruppe</label>
+                <input v-model="localgroup.name" disabled/>
             </div>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="demo.teilnehmerzahl"
-                    name="teilnehmerzahl"
-                    type="number"
-                    placeholder="Teilnehmerzahl"/>
+
+            <div class="input-wrapper">
+                <label>Teilnehmerzahl</label>
+                <input v-model="demo.teilnehmerzahl" type="number"/>
             </div>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="demo.beschreibung"
-                    name="beschreibung"
-                    type="textarea"
-                    placeholder="Beschreibung"/>
+
+            <div class="input-wrapper">
+                <label>Beschreibung</label>
+                <input v-model="demo.beschreibung" type="textarea"/>
             </div>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="demo.link"
-                    name="link"
-                    type="url"
-                    placeholder="Link"/>
+            
+            <div class="input-wrapper">
+                <label>Link</label>
+                <input v-model="demo.link" type="url"/>
             </div>
-            <div>
-                <input class="fff-signup__input fff-input"
-                    v-model="addressToLatLng"
-                    name="addressToLatLng"
-                    type="text"
-                    placeholder="Gib die Adresse des Startpunktes ein und wir ermitteln die Koordinaten für dich"/>
+
+            <div class="input-wrapper">
+                <label>Adresse des Startpunktes</label>
+                <input v-model="addressToLatLng" placeholder="Gib die exakte Adresse des Startpunktes ein und wir ermitteln die Koordinaten für Dich"/>
             </div>
+
             <div class="fff-input__lat-lng">
                 <button :disabled="!addressToLatLng" @click="checkAdress($event)">Suche Koordination</button>
                 <input class="fff-signup__input fff-input"
@@ -132,6 +116,11 @@ export default {
             return this.$store.getters['localgroups/getItems'];
         },
 
+        localgroup() {
+            // TODO: Select localgroup of user
+            return this.localgroups[0] || {};
+        },
+
         demo() {
             return this.$store.getters['demos/getItemByID'](this.$router.currentRoute.params.id) || {};
         },
@@ -150,16 +139,16 @@ export default {
 </script>
 
 <style lang="scss">
-.fff-input__lat-lng {
-    display: flex;
+// .fff-input__lat-lng {
+//     display: flex;
 
-    button {
-        flex-basis: 100%;
-        margin: 5px 5px 5px 0;
+//     button {
+//         flex-basis: 100%;
+//         margin: 5px 5px 5px 0;
 
-        &:disabled {
-            background: grey;
-        }
-    }
-}
+//         &:disabled {
+//             background: grey;
+//         }
+//     }
+// }
 </style>

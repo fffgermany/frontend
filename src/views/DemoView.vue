@@ -75,7 +75,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .map-placeholder {
     background: lightblue;
     height: 300px;
