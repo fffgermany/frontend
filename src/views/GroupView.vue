@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <h2>{{ localgroup.name }}</h2>
+        <h2>Ortsgruppe: {{ localgroup.name }}</h2>
 
         <div class="attribute" v-if="localgroup.description">
             <span class="key">Beschreibung: </span>

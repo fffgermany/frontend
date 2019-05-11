@@ -10,6 +10,8 @@
             </div>
         </div>
 
+        <h2>Demo</h2>
+
         <div class="attribute" v-if="demo.ort">
             <span class="key">Ort: </span>
             <span class="value">{{ demo.ort }}</span>

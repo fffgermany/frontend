@@ -1,5 +1,10 @@
 <template>
     <div class="fff-demo-edit main-container">
+        <h2>Ortsgruppe
+            <span v-if="isNew">erstellen</span>
+            <span v-else>bearbeiten</span>
+        </h2>
+
         <form>
             <div class="input-wrapper">
                 <label>Name</label>
