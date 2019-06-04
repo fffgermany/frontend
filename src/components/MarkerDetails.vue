@@ -2,7 +2,10 @@
     <div v-if="model" class="fff-marker-details">
         <div class="fff-marker-details__">
             <span class="key">Ort: </span>
-            <span class="value">{{model.ort}} (Ortsgruppe: {{localgroup.name}})</span>
+            <span class="value">{{model.ort}}
+                (Ortsgruppe:
+                <router-link :to="{ name: 'groupView', params: { id: localgroup.id } }" class="value">{{ localgroup.name }}</router-link>)
+            </span>
         </div>
         <div class="fff-marker-details__">
             <span class="key">Datum: </span>
@@ -15,9 +18,6 @@
 </template>
 
 <script>
-
-import router from '@/router';
-// ToDo add required
 export default {
     name: 'gmInput',
 
@@ -27,7 +27,7 @@ export default {
 
     methods: {
         show() {
-            this.$router.push(`demos/${this.model.id}`);
+            this.$router.push({ name: 'demoView', params: { id: this.model.id } });
         }
     },
 
@@ -47,7 +47,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped>
 .key {
     font-weight: bold;
 }
