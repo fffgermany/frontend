@@ -16,8 +16,8 @@ const getters = {
     getItemByID: state => (ID) => {
         const parsedID = parseInt(ID);
         return state.list.find(item => item.id === parsedID);
-    }
-}
+    },
+};
 
 const mutations = {   
     setList(state, val) {
