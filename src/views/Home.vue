@@ -79,7 +79,7 @@ export default {
 
 <style scoped>
 .home {
-    height: 100%;
+    height: calc(100vh - 70px);
     width: 100%;
 }
 </style>
