@@ -53,16 +53,21 @@
             <span class="key">Instagram: </span>
             <span class="value">{{ localgroup.instagram }}</span>
         </div>
+
+        <hr>
+        <h3>Demos in {{ localgroup.name }}</h3>
+        <DemoPreview v-for="demo in demosOfLocalgroup" :demo="demo" :key="demo.id"/>
     </div>
 </template>
 
 <script>
 import EditButton from '@/components/EditButton'
+import DemoPreview from '@/components/DemoPreview'
 
 export default {
     name: 'group-view',
 
-    components: { EditButton },
+    components: { EditButton, DemoPreview },
 
     computed: {
         localgroups() {
@@ -71,6 +76,11 @@ export default {
 
         localgroup() {
             return this.localgroups.find(g => g.id == this.$route.params.id) || {};
+        },
+
+        demosOfLocalgroup() {
+            const demos = this.$store.getters['demos/getItems'];
+            return demos.filter(demo => demo.ortsgruppe_id === this.localgroup.id)
         },
 
         isEditable() {
@@ -101,5 +111,11 @@ export default {
 
 .attribute .key {
     font-weight: bold;
+}
+
+hr {
+    margin-top: 50px;
+    background-color: rgb(225,225, 225);
+    border-color: rgb(225,225, 225);
 }
 </style>

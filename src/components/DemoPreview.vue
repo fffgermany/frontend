@@ -4,7 +4,7 @@
             <p class="place-time">{{ demo.ort }} am {{ demo.zeit }}</p>
 
             <div v-if="open">
-                <p>Ortsgruppe: {{ demo.ortsgruppeName }}</p>
+                <p>Ortsgruppe: {{ localgroup.name }}</p>
                 <p>Teilnehmerzahl: {{ demo.teilnehmerzahl }}</p>
             </div>
         </router-link>
@@ -30,6 +30,12 @@ export default {
     methods: {
         toggle() {
             this.open = !this.open
+        }
+    },
+
+    computed: {
+        localgroup() {
+            return this.$store.getters['localgroups/getItemByID'](this.demo.ortsgruppe_id);
         }
     }
 }

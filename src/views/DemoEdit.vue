@@ -80,10 +80,15 @@ export default {
         async submit(event) {
             event.preventDefault();
 
+            let demo = {
+                ...this.demo,
+                ortsgruppe_id: this.localgroup.id
+            }
+
             if (this.isNew) {
-                await this.$store.dispatch(`demos/create`, this.demo);
+                await this.$store.dispatch(`demos/create`, demo);
             } else {
-                await this.$store.dispatch(`demos/update`, this.demo);
+                await this.$store.dispatch(`demos/update`, demo);
             }
 
             this.$router.push({ name: 'demoView', params: { id: this.$route.params.id } });

@@ -13,6 +13,10 @@ const getters = {
 
     getItemByRelatedModel: (state) => (relatedModel) => {
         return state.list.find(item => item && item.id === relatedModel.ortsgruppe_id);
+    },
+
+    getItemByID: (state) => (id) => {
+        return state.list.find(item => item && item.id == id);
     }
 };
 

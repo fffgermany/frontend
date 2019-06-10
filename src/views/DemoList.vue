@@ -29,24 +29,12 @@ export default {
         },
 
         demos() {
-            const demos = this.$store.getters['demos/getItems'];
-
-            return this.$store.getters['demos/getItems'].map((demo) => {
-                if (this.localgroups) {
-                    const localgroup = this.localgroups.find(localgroup => localgroup.id === demo.ortsgruppe_id);
-                    demo.ortsgruppeName = localgroup ? localgroup.name : '';
-                }
-
-                return demo;
-            });
+            return this.$store.getters['demos/getItems'];
         },
 
         filteredDemos() {
             let search = this.search.toLowerCase()
-            return this.demos.filter(demo => (
-                demo.ortsgruppeName.toLowerCase().includes(search) ||
-                    demo.ort.toLowerCase().includes(search)
-            ))
+            return this.demos.filter(demo => demo.ort.toLowerCase().includes(search))
         }
     },
 
