@@ -1,33 +1,25 @@
 <template>
     <div class="fff-demo-list main-container">
-        <div v-if="user">
-            <div>
-                <input type="checkbox" v-model="filterByAdminID" class="fff-input"/>
-                Zeige nur meine Demos
-            </div>
-            <div>
-                <button @click="addNewDemo">Neue Demo anlegen</button>
-            </div>
-        </div>
+        <SearchBar v-model="search"/>
 
-
-        <DemoPreview v-for="demo in demos" :demo="demo" :key="demo.id"/>
+        <DemoPreview v-for="demo in filteredDemos" :demo="demo" :key="demo.id"/>
     </div>
 </template>
 
 <script>
 import DemoPreview from '@/components/DemoPreview'
+import SearchBar from '@/components/SearchBar'
 
 export default {
     name: 'demoList',
 
     data() {
         return {
-            filterByAdminID: false,
+            search: '',
         }
     },
 
-    components: { DemoPreview },
+    components: { DemoPreview, SearchBar },
 
     computed: {
         localgroups() {
@@ -47,8 +39,12 @@ export default {
             });
         },
 
-        user() {
-            return this.$store.getters['getUser']();
+        filteredDemos() {
+            let search = this.search.toLowerCase()
+            return this.demos.filter(demo => (
+                demo.ortsgruppeName.toLowerCase().includes(search) ||
+                    demo.ort.toLowerCase().includes(search)
+            ))
         }
     },
 

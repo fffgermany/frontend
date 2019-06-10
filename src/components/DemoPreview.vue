@@ -1,10 +1,9 @@
 <template>
     <div class="fff-demo-preview" :class="{ open }">
         <router-link class="left" :to="{ name: 'demoView', params: { id: demo.id } }">
-            <p class="place">{{ demo.ort }}</p>
+            <p class="place-time">{{ demo.ort }} am {{ demo.zeit }}</p>
 
             <div v-if="open">
-                <p>Startzeit: {{ demo.zeit }}</p>
                 <p>Ortsgruppe: {{ demo.ortsgruppeName }}</p>
                 <p>Teilnehmerzahl: {{ demo.teilnehmerzahl }}</p>
             </div>
@@ -54,7 +53,7 @@ export default {
     color: black;
 }
 
-.fff-demo-preview:hover .place {
+.fff-demo-preview:hover .place-time {
     color: var(--primary-color);
 }
 
@@ -62,7 +61,7 @@ export default {
     padding: 10px;
 }
 
-.fff-demo-preview.open .place {
+.fff-demo-preview.open .place-time {
     font-weight: bold;
 }
 
