@@ -73,7 +73,7 @@ export default {
 
         isEditable() {
             const user = this.$store.getters['users/getUser']();
-            return user.user && user.user.id === this.localgroup.inserter_id;
+            return user.id === this.localgroup.admin_id;
         }
     },
 

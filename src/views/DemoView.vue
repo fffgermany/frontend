@@ -60,11 +60,14 @@ export default {
             if (this.demo && this.localgroups) {
                 return this.localgroups.find(og => og.id === this.demo.ortsgruppe_id);
             }
+            return {}
         },
 
         isEditable() {
+            if (!this.localgroup) return false
+
             const user = this.$store.getters['users/getUser']();
-            return user.user && user.user.id === this.demo.inserter_id;
+            return user.id === this.localgroup.admin_id;
         }
     },
 
