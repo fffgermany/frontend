@@ -7,7 +7,7 @@ const service = axios.create({
 
 service.interceptors.request.use(
     (config) => {
-        config.headers.Authorization = `Bearer ${store.state.user.apikey}`;
+        config.headers.Authorization = `Bearer ${store.state.users.apikey}`;
         return config;
     },
     error => Promise.reject(error),

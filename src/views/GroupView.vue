@@ -72,7 +72,7 @@ export default {
         },
 
         isEditable() {
-            const user = this.$store.getters['getUser']();
+            const user = this.$store.getters['users/getUser']();
             return user.user && user.user.id === this.localgroup.inserter_id;
         }
     },
