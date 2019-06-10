@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :style="{ backgroundImage: `url(${require('@/assets/erde_hell.svg')})` }">
     <NavBar/>
     <router-view/>
   </div>
@@ -17,15 +17,15 @@ export default {
 
 <style>
   html, body, #app {
-    height: 100%;
+    min-height: 100vh;
     width: 100%;
     margin: 0;
   }
 
   #app {
-    background-image: url(https://fridaysforfuture.de/erde_hell.svg);
     background-color: var(--primary-color);
     background-position: 120% 20%;
     background-size: 120%;
+    background-attachment: fixed;
   }
 </style>

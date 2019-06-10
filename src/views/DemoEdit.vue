@@ -1,5 +1,7 @@
 <template>
     <div class="fff-demo-edit main-container">
+        <vue-headful :title="`Demo in ${localgroup.name} bearbeiten - Fridays For Future Regionalgruppen`" />
+
         <h2>Demo
             <span v-if="isNew">erstellen</span>
             <span v-else>bearbeiten</span>
@@ -56,7 +58,7 @@
             </div>
             <div>
                 <button @click="submit($event)">speichern</button>
-                <button @click="erase($event)">löschen</button>
+                <button v-if="!isNew" @click="erase($event)">löschen</button>
             </div>
         </form>
     </div>
@@ -78,10 +80,15 @@ export default {
         async submit(event) {
             event.preventDefault();
 
+            let demo = {
+                ...this.demo,
+                ortsgruppe_id: this.localgroup.id
+            }
+
             if (this.isNew) {
-                await this.$store.dispatch(`demos/create`, this.demo);
+                await this.$store.dispatch(`demos/create`, demo);
             } else {
-                await this.$store.dispatch(`demos/update`, this.demo);
+                await this.$store.dispatch(`demos/update`, demo);
             }
 
             this.$router.push({ name: 'demoView', params: { id: this.$route.params.id } });
@@ -90,7 +97,10 @@ export default {
         async erase(event) {
             event.preventDefault();
 
-            await this.$store.dispatch(`${namespace}/delete`, this.demo);
+            let confirmation = confirm('Möchtest Du diese Demo wirklich löschen?')
+            if (!confirmation) return
+
+            await this.$store.dispatch('demos/delete', this.demo);
             this.$router.push({ name: 'demoList' });
         },
 

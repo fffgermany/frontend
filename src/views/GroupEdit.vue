@@ -1,5 +1,7 @@
 <template>
     <div class="fff-demo-edit main-container">
+        <vue-headful :title="`${localgroup.name} bearbeiten - Fridays For Future Regionalgruppen`" />
+
         <h2>Ortsgruppe
             <span v-if="isNew">erstellen</span>
             <span v-else>bearbeiten</span>
@@ -74,8 +76,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     name: 'group-edit',
 

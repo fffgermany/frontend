@@ -6,6 +6,9 @@ import store from './store';
 import './registerServiceWorker';
 import '@/assets/style.css';
 
+import vueHeadful from 'vue-headful';
+Vue.component('vue-headful', vueHeadful);
+
 Vue.config.productionTip = false;
 
 new Vue({

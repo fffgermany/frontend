@@ -1,85 +1,43 @@
 <template>
     <div class="fff-demo-list main-container">
-        <div v-if="user">
-            <div>
-                <input type="checkbox" v-model="filterByAdminID" class="fff-input"/>
-                Zeige nur meine Demos
-            </div>
-            <div>
-                <button @click="addNewDemo">Neue Demo anlegen</button>
-            </div>
-        </div>
+        <vue-headful title="Demos - Fridays For Future Regionalgruppen" />
 
-        <vue-virtual-table
-            :enableExport="true"
-            :height="windowHeight"
-            :config="tableConfig"
-            :data="demos">
-            <template slot-scope="scope" slot="actionCommon">
-                <!-- ToDo add btns for  demo admin shortcuts (delete, edit, copy) -->
-                <button @click="goToDemo(scope.row.id)">Details anzeigen</button>
-            </template>
-        </vue-virtual-table>
+        <SearchBar v-model="search"/>
+
+        <DemoPreview v-for="demo in filteredDemos" :demo="demo" :key="demo.id"/>
     </div>
 </template>
 
 <script>
-
-import VueVirtualTable from 'vue-virtual-table';
+import DemoPreview from '@/components/DemoPreview'
+import SearchBar from '@/components/SearchBar'
 
 export default {
     name: 'demoList',
 
     data() {
         return {
-            filterByAdminID: false,
-            tableConfig: [
-                {
-                    prop: 'ort', name: 'Treffpunkt', sortable: true, searchable: true,
-                },
-                {
-                    prop: 'ortsgruppeName', name: 'Ortsgruppe', sortable: true, searchable: true,
-                },
-                {
-                    prop: 'zeit', name: 'Startzeit', sortable: true, searchable: true,
-                },
-                {
-                    prop: 'teilnehmerzahl', name: 'Teilnehmerzahl', sortable: true, searchable: true,
-                },
-                {
-                    prop: '_action', name: ' ', actionName: 'actionCommon'
-                },
-            ],
-        };
+            search: '',
+        }
     },
 
-    components: { VueVirtualTable },
+    components: { DemoPreview, SearchBar },
 
     computed: {
         localgroups() {
             return this.$store.getters['localgroups/getItems'];
         },
+
         demos() {
-            const demos = this.$store.getters['demos/getItems'];
-
-            return this.$store.getters['demos/getItems'].map((demo) => {
-                if (this.localgroups) {
-                    const localgroup = this.localgroups.find(localgroup => localgroup.id === demo.ortsgruppe_id);
-                    demo.ortsgruppeName = localgroup ? localgroup.name : '';
-                }
-
-                return demo;
-            });
+            return this.$store.getters['demos/getItems'];
         },
 
-        user() {
-            return this.$store.getters['getUser']();
-        },
-
-        windowHeight() {
-            return window.innerHeight * 0.7;
-        },
+        filteredDemos() {
+            let search = this.search.toLowerCase()
+            return this.demos.filter(demo => demo.ort.toLowerCase().includes(search))
+        }
     },
+
     methods: {
         addNewDemo() {
             this.$router.push({ name: 'demoView', params: { id: 'new' } });
@@ -89,6 +47,7 @@ export default {
             this.$router.push({ name: 'demoView', params: { id: id } });
         },
     },
+
     beforeCreate() {
         this.$store.dispatch('demos/getList');
         this.$store.dispatch('localgroups/getList');

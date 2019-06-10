@@ -1,5 +1,9 @@
 <template>
     <div class="fff-signin main-container">
+        <vue-headful title="Anmelden - Fridays For Future Regionalgruppen" />
+
+        <h2>Anmelden</h2>
+
         <form v-if="!signinSuccess">
             <div class="input-wrapper">
                 <label>E-Mail-Adresse</label>
@@ -15,6 +19,8 @@
                 <button @click="submit">Anmelden</button>
             </div>
         </form>
+
+        <p>Stattdessen <router-link :to="{ name: 'signup' }">registrieren</router-link></p>
     </div>
 </template>
 

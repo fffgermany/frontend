@@ -1,5 +1,7 @@
 <template>
     <div class="fff-demo-view main-container">
+        <vue-headful :title="`Demo in ${localgroup.name} - Fridays For Future Regionalgruppen`" />
+
         <EditButton v-if="isEditable" :to="{ name: 'demoEdit', id: demo.id }"/>
         
         <div class="map-placeholder">
@@ -40,7 +42,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import EditButton from '@/components/EditButton'
 
 export default {
@@ -59,13 +60,16 @@ export default {
 
         localgroup() {
             if (this.demo && this.localgroups) {
-                return this.localgroups.find(og => og.id === this.demo.ortsgruppe_id);
+                return this.localgroups.find(og => og.id === this.demo.ortsgruppe_id) || {};
             }
+            return {}
         },
 
         isEditable() {
-            const user = this.$store.getters['getUser']();
-            return user.user && user.user.id === this.demo.inserter_id;
+            if (!this.localgroup) return false
+
+            const user = this.$store.getters['users/getUser']();
+            return user.id === this.localgroup.admin_id;
         }
     },
 

@@ -1,5 +1,7 @@
 <template>
     <div class="home">
+        <vue-headful title="Fridays For Future Regionalgruppen" />
+
         <l-map class="map" 
             ref="map" 
             :center="center" 
@@ -77,7 +79,7 @@ export default {
 
 <style scoped>
 .home {
-    height: 100%;
+    height: calc(100vh - 70px);
     width: 100%;
 }
 </style>
