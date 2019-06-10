@@ -17,7 +17,7 @@ export default {
 
 <style>
   html, body, #app {
-    height: 100%;
+    min-height: 100vh;
     width: 100%;
     margin: 0;
   }
@@ -27,5 +27,6 @@ export default {
     background-color: var(--primary-color);
     background-position: 120% 20%;
     background-size: 120%;
+    background-attachment: fixed;
   }
 </style>
