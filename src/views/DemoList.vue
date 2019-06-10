@@ -1,5 +1,7 @@
 <template>
     <div class="fff-demo-list main-container">
+        <vue-headful title="Demos - Fridays For Future Regionalgruppen" />
+
         <SearchBar v-model="search"/>
 
         <DemoPreview v-for="demo in filteredDemos" :demo="demo" :key="demo.id"/>

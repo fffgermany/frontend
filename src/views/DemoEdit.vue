@@ -1,5 +1,7 @@
 <template>
     <div class="fff-demo-edit main-container">
+        <vue-headful :title="`Demo in ${localgroup.name} bearbeiten - Fridays For Future Regionalgruppen`" />
+
         <h2>Demo
             <span v-if="isNew">erstellen</span>
             <span v-else>bearbeiten</span>

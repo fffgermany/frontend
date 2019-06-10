@@ -1,5 +1,7 @@
 <template>
     <div class="fff-group-list main-container">
+        <vue-headful title="Ortsgruppen - Fridays For Future Regionalgruppen" />
+
         <h2>Ortgruppen</h2>
 
         <SearchBar v-model="search"/>

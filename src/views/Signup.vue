@@ -1,5 +1,7 @@
 <template>
     <div class="fff-signup main-container">
+        <vue-headful title="Registrieren - Fridays For Future Regionalgruppen" />
+
         <form v-if="!signupSuccess">
             <div class="input-wrapper">
                 <label>Name</label>

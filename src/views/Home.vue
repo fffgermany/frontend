@@ -1,5 +1,7 @@
 <template>
     <div class="home">
+        <vue-headful title="Fridays For Future Regionalgruppen" />
+
         <l-map class="map" 
             ref="map" 
             :center="center" 

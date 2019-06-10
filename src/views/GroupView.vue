@@ -1,5 +1,7 @@
 <template>
     <div class="fff-group-view main-container">
+        <vue-headful :title="`${localgroup.name} - Fridays For Future Regionalgruppen`" />
+
         <EditButton v-if="isEditable" :to="{ name: 'groupEdit', id: localgroup.id }"/>
         
         <div class="map-placeholder">

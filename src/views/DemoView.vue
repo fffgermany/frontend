@@ -1,5 +1,7 @@
 <template>
     <div class="fff-demo-view main-container">
+        <vue-headful :title="`Demo in ${localgroup.name} - Fridays For Future Regionalgruppen`" />
+
         <EditButton v-if="isEditable" :to="{ name: 'demoEdit', id: demo.id }"/>
         
         <div class="map-placeholder">
@@ -58,7 +60,7 @@ export default {
 
         localgroup() {
             if (this.demo && this.localgroups) {
-                return this.localgroups.find(og => og.id === this.demo.ortsgruppe_id);
+                return this.localgroups.find(og => og.id === this.demo.ortsgruppe_id) || {};
             }
             return {}
         },
