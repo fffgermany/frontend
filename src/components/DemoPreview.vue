@@ -50,7 +50,11 @@ export default {
     background: rgb(240, 240, 240);
 }
 
-.fff-demo-preview:hover p {
+.fff-demo-preview p {
+    color: black;
+}
+
+.fff-demo-preview:hover .place {
     color: var(--primary-color);
 }
 

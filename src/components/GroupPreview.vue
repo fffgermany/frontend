@@ -18,6 +18,7 @@ export default {
     background: rgb(250, 250, 250);
     padding: 10px;
     margin-bottom: 10px;
+    color: black;
 }
 
 .fff-group-preview:hover {
