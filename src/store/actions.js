@@ -10,4 +10,4 @@ export const getList = source => (context, forceUpdate) => {
     });
 };
 
-export const update = source => (context, model) => service.put(`api/${source}/${model.id}`);
+export const update = source => (context, model) => service.put(`api/${source}/${model.id}`, model);
