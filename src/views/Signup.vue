@@ -2,6 +2,8 @@
     <div class="fff-signup main-container">
         <vue-headful title="Registrieren - Fridays For Future Regionalgruppen" />
 
+        <h2>Registrieren</h2>
+
         <form v-if="!signupSuccess">
             <div class="input-wrapper">
                 <label>Name</label>
@@ -53,9 +55,11 @@
             </div>
 
             <div>
-                <button @click="submit">registrieren</button>
+                <button @click="submit">Registrieren</button>
             </div>
         </form>
+
+        <p>Stattdessen <router-link :to="{ name: 'signin' }">anmelden</router-link></p>
 
         <div v-if="signupSuccess">
             Wir haben dir eine Email geschickt, um deine Email-Adresse zu verifizieren.
