@@ -55,7 +55,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import EditButton from '@/components/EditButton'
 
 export default {
