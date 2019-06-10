@@ -56,7 +56,7 @@
             </div>
             <div>
                 <button @click="submit($event)">speichern</button>
-                <button @click="erase($event)">löschen</button>
+                <button v-if="!isNew" @click="erase($event)">löschen</button>
             </div>
         </form>
     </div>
@@ -90,7 +90,10 @@ export default {
         async erase(event) {
             event.preventDefault();
 
-            await this.$store.dispatch(`${namespace}/delete`, this.demo);
+            let confirmation = confirm('Möchtest Du diese Demo wirklich löschen?')
+            if (!confirmation) return
+
+            await this.$store.dispatch('demos/delete', this.demo);
             this.$router.push({ name: 'demoList' });
         },
 
